@@ -1,21 +1,33 @@
-<div>
-  <div class="md:grid md:grid-cols-3 md:gap-6">
+<div class="container sm:px-20 px-4">
+  <div class="md:grid md:grid-cols-2 md:gap-6">
     <div class="mt-5 md:mt-0 md:col-span-2">
-      <form action="#" method="POST">
+      <%= form_with(model: friend) do |form| %>
+        <% if friend.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+            <ul>
+              <% friend.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
-                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <%= form.text_field :first_name, class: 'focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300', placeholder: 'Claire' %>
               </div>
               <div class="col-span-6 sm:col-span-3">
-                <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
-                <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <label for="first-name" class="block text-sm font-medium text-gray-700">Last name</label>
+                <%= form.text_field :last_name, class: 'focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300', placeholder: 'Cotrill' %>
+              </div>
+              <div class="col-span-6 sm:col-span-4">
+                <label for="last-name" class="block text-sm font-medium text-gray-700">Email address</label>
+                <%= form.text_field :email, class: 'focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300', placeholder: 'clairo@gmail.com' %>
               </div>
             </div>
-
             <div class="grid grid-cols-3 gap-6">
               <div class="col-span-3 sm:col-span-2">
                 <label for="company-website" class="block text-sm font-medium text-gray-700">
@@ -25,7 +37,7 @@
                   <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
                     @
                   </span>
-                  <input type="text" name="company-website" id="company-website" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="clairo">
+                  <%= form.text_field :twitter, class: 'focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300', placeholder: 'clairo' %>
                 </div>
               </div>
             </div>
@@ -34,7 +46,7 @@
                 About
               </label>
               <div class="mt-1">
-                <textarea id="about" name="about" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Hi, my name is ... and I like..."></textarea>
+                <%= form.text_area :about, rows: 3, class: 'shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md', placeholder: 'Hi, my name is ... and I like...' %>
               </div>
               <p class="mt-2 text-sm text-gray-500">
                 Brief description of you.
@@ -80,51 +92,11 @@
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Save
+              Add Friend
             </button>
           </div>
         </div>
-      </form>
+      <% end %>
     </div>
   </div>
 </div>
-<%= form_with(model: friend) do |form| %>
-  <% if friend.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
-      <ul>
-        <% friend.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div>
-    <%= form.label :first_name, class: 'block text-sm font-medium text-gray-700' %>
-    <div class="mt-1 relative rounded-md shadow-sm">
-      <%= form.text_field :first_name, class: 'focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 pr-12 sm:text-sm border border-gray-300 rounded-md', placeholder: 'Claire cotrill...' %>
-    </div>
-  </div>
-  <div class="field">
-    <%= form.label :first_name %>
-  </div>
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= form.label :twitter %>
-    <%= form.text_field :twitter %>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
